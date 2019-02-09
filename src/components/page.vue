@@ -1,7 +1,11 @@
 <template>
 <page class='page__'>
-  <div class='display'>
-    <el-card class = 'cardd' shadow="hover">鼠标悬浮时显示</el-card>
+  <div v-for = '(page, index) in pages' :key='page.id'  class='display'>
+    <el-card class = 'cardd' shadow="hover">
+        <div slot="header" class="clearfix">
+    <span>{{ page.p_title }} {{ index }}</span>
+  </div>
+      <div v-html='page.content'></div> </el-card>
   </div>
   <div class='display'>
 <el-pagination class ='pagination' background layout="prev, pager, next" :total="1000">
@@ -9,6 +13,27 @@
 </div>
 </page>
 </template>
+
+<script>
+export default {
+  data: function () {
+    return {
+      pages: []
+    }
+  },
+  mounted: function () {
+    this.axios({
+      method: 'get',
+      url: 'apis/API/page/'
+    }).then(data => {
+      console.log(data.data)
+      this.pages = data.data.results
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+}
+</script>
 
 <style>
 .display {
@@ -22,13 +47,13 @@
 }
 .page_ {
   width: 900px;
-  height: 100px;
+  height: 200px;
   margin-bottom: 10px;
   padding: 4px;
   background-color: aquamarine
 }
 .cardd {
-  height: 100px;
+  height: 160px;
   display: block;
   margin-bottom: 10px;
 }
