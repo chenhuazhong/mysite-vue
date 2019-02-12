@@ -73,7 +73,7 @@ export default {
           }
           ).then(data => {
             window.localStorage['access'] = data.data['access']
-            this.$router.push({path: '/test'})
+            this.$router.push({path: '/header'})
           }).catch(eor => {
             alert('登录失败，用户名或密码错误')
           })

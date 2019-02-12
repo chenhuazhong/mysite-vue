@@ -5,8 +5,8 @@
         <carousoul class = 'carousoul_'></carousoul>
         <page></page>
         </el-tab-pane>
-      <el-tab-pane label="音乐" name="second">音乐2</el-tab-pane>
-      <el-tab-pane label="文章" name="third">文章3</el-tab-pane>
+      <el-tab-pane label="音乐" name="second"><music/></el-tab-pane>
+      <el-tab-pane label="文章" name="third"> <page></page></el-tab-pane>
       <el-tab-pane label="歌词" name="fourth">歌词4</el-tab-pane>
     </el-tabs>
     <a v-if='is_login' class ='login' href="">root</a>
@@ -16,6 +16,8 @@
 <script>
 import carousoul from '@/components/carousoul'
 import page from '@/components/page'
+import music from '@/components/music'
+
 export default {
   data () {
     return {
@@ -30,7 +32,8 @@ export default {
   },
   components: {
     carousoul,
-    page
+    page,
+    music
   }
 }
 </script>
