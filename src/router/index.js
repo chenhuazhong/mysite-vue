@@ -7,6 +7,7 @@ import Heade from '@/components/header'
 import Regsiter from '@/components/regsiter'
 import Login from '@/components/login'
 import MainFrame from '@/components/mainframework'
+import tab from '@/components/addtab'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
       name: 'main',
       path: '/main',
       component: MainFrame
+    },
+    {
+      name: 'addtab',
+      path: '/addtab',
+      component: tab
     }
   ]
 })
