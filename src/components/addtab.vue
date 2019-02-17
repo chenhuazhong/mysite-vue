@@ -26,7 +26,7 @@
 export default {
   data () {
     return {
-      editableTabsValue2: '2',
+      editableTabsValue2: '1',
       editableTabs2: [{
         title: 'Tab 1',
         name: '1',

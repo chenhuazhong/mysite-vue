@@ -1,10 +1,9 @@
 <template>
 <div class='test'>
-  <button @click="addTab('这是一个标题', '这是内容')">aaa</button>
     <el-tabs v-model="activeName2" type="border-card" @tab-click="handleClick" @tab-remove="removeTab">
       <el-tab-pane label="首页" name="first">
         <carousoul class = 'carousoul_'></carousoul>
-        <page></page>
+        <page v-on:page-detail="check_page_detail($event)"></page>
         </el-tab-pane>
       <el-tab-pane label="音乐" name="second"><music/></el-tab-pane>
       <el-tab-pane label="文章" name="third"> <page></page></el-tab-pane>
@@ -12,10 +11,11 @@
         <el-tab-pane closable
         v-for="item in editableTabs2"
         :key="item.name"
-        :label="item.title"
+        :label="item.title_"
         :name="item.name"
       >
-        {{item.content}}
+      <pagedetail :title="item.title" :content="item.content"></pagedetail>
+        <!-- <div v-html="item.content"></div> -->
       </el-tab-pane>
     </el-tabs>
     <a v-if='is_login' class ='login' href="">root</a>
@@ -26,13 +26,13 @@
 import carousoul from '@/components/carousoul'
 import page from '@/components/page'
 import music from '@/components/music'
+import pagedetail from '@/components/detail'
 
 export default {
   data () {
     return {
       activeName2: 'first',
       is_login: false,
-      editableTabsValue2: '2',
       editableTabs2: [],
       tabIndex: 0
     }
@@ -44,11 +44,12 @@ export default {
     addTab (title_, content_) {
       let newTabName = ++this.tabIndex + ''
       this.editableTabs2.push({
+        title_: title_.substring(0, 11) + '...',
         title: title_,
         name: newTabName,
         content: content_
       })
-      this.editableTabsValue2 = newTabName
+      this.activeName2 = newTabName
     },
     removeTab (targetName) {
       let tabs = this.editableTabs2
@@ -65,12 +66,21 @@ export default {
       }
       this.editableTabsValue2 = activeName
       this.editableTabs2 = tabs.filter(tab => tab.name !== targetName)
+    },
+    check_page_detail (id) {
+      this.axios({
+        method: 'get',
+        url: 'apis/API/page/' + id + '/'
+      }).then(data => {
+        this.addTab(data.data.p_title, data.data.p_content)
+      })
     }
   },
   components: {
     carousoul,
     page,
-    music
+    music,
+    pagedetail
   }
 }
 </script>
