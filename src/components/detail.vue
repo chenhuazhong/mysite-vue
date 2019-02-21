@@ -1,9 +1,9 @@
 <template>
     <div id='page_body'>
-        <h1>{{ title }}</h1>
+        <h2>{{ title }}</h2>
         <div>
             <el-button
-            plain
+            :plain="true"
             @click="open5">
             原文链接
             </el-button>
@@ -14,13 +14,19 @@
 
 <script>
 export default {
-  props: ['content', 'title'],
-  methdos: {
+  props: ['content', 'title', 'linkurl'],
+  data () {
+    return {
+      has_link: true
+    }
+  },
+  methods: {
     open5 () {
-      this.$notify.info({
-        title: '消息',
-        message: '这是一条消息的提示消息'
-      })
+      if (this.linkurl) {
+        window.location.href = 'http://' + this.linkurl
+      } else {
+        this.$message('该片文章没有原文链接')
+      }
     }
   }
 }

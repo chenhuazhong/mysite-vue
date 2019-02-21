@@ -14,7 +14,7 @@
         :label="item.title_"
         :name="item.name"
       >
-      <pagedetail :title="item.title" :content="item.content"></pagedetail>
+      <pagedetail :title="item.title" :content="item.content" :linkurl="item.linkurl"></pagedetail>
         <!-- <div v-html="item.content"></div> -->
       </el-tab-pane>
     </el-tabs>
@@ -41,13 +41,14 @@ export default {
     handleClick (tab, event) {
       console.log(tab, event)
     },
-    addTab (title_, content_) {
+    addTab (title_, content_, linkurl_) {
       let newTabName = ++this.tabIndex + ''
       this.editableTabs2.push({
         title_: title_.substring(0, 11) + '...',
         title: title_,
         name: newTabName,
-        content: content_
+        content: content_,
+        linkurl: linkurl_
       })
       this.activeName2 = newTabName
     },
@@ -72,7 +73,7 @@ export default {
         method: 'get',
         url: 'apis/API/page/' + id + '/'
       }).then(data => {
-        this.addTab(data.data.p_title, data.data.p_content)
+        this.addTab(data.data.p_title, data.data.p_content, data.data.p_other_link)
       })
     }
   },

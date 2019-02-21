@@ -1,10 +1,40 @@
 <template>
   <el-carousel class='el_carousel_' indicator-position="outside">
-    <el-carousel-item id='el-carousel-item_' v-for="item in 4" :key="item">
-      <img class='image_' src="http://华忠.xyz/static/media/2018/11/17/15424695160.jpg" alt="图片">
+    <el-carousel-item id='el-carousel-item_' v-for="(item, index) in doman" :key="index">
+      <img class='image_' :src="item.image" alt="图片" v-on:click="$emit('page-detail')">
     </el-carousel-item>
   </el-carousel>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      doman: []
+    }
+  },
+  methods: {
+    getpage () {
+      this.axios({
+        url: 'apis/API/doman/',
+        method: 'GET'
+      }).then(data => {
+        console.log(data.data)
+        for (var i = 0; i < data.data.length; i++) {
+          this.doman.push({
+            url: data.data[i].url,
+            image: data.data[i].image,
+            title: data.data[i].title
+          })
+        }
+      })
+    }
+  },
+  mounted: function () {
+    this.getpage()
+  }
+}
+</script>
 
 <style>
 /**/

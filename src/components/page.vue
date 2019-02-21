@@ -31,11 +31,10 @@ export default {
         method: 'get',
         url: 'apis/API/page/?offset=' + (currentpage - 1) * this.page_size + '&limit=' + this.page_size
       }).then(data => {
-        console.log(data.data)
         this.total = data.data.count
         this.pages = data.data.results
-      }).catch(err => {
-        console.log(err)
+      }).catch(() => {
+        alert('error')
       })
     },
     nextpage: function (currentpage) {
