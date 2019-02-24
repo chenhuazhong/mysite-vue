@@ -1,7 +1,7 @@
 <template>
-  <el-carousel class='el_carousel_' indicator-position="outside">
-    <el-carousel-item id='el-carousel-item_' v-for="(item, index) in doman" :key="index">
-      <img class='image_' :src="item.image" alt="图片" v-on:click="$emit('page-detail')">
+  <el-carousel :interval='time' height="450px" class='el_carousel_' indicator-position="outside">
+    <el-carousel-item class='el-carousel-item_' v-for="(item, index) in doman" :key="index" >
+      <img class='image_' :src="item.image" alt="图片" v-on:click="$emit('domandetail', [item.title, item.id, item.type])">
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -10,21 +10,24 @@
 export default {
   data () {
     return {
-      doman: []
+      doman: [],
+      time: 5000
     }
   },
   methods: {
     getpage () {
       this.axios({
-        url: 'apis/API/doman/',
+        url: 'API/doman/',
         method: 'GET'
       }).then(data => {
         console.log(data.data)
         for (var i = 0; i < data.data.length; i++) {
           this.doman.push({
+            id: data.data[i].id,
             url: data.data[i].url,
             image: data.data[i].image,
-            title: data.data[i].title
+            title: data.data[i].title,
+            type: data.data[i].type
           })
         }
       })
@@ -72,4 +75,5 @@ export default {
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
   }
+
 </style>

@@ -9,6 +9,8 @@
   <el-form-item>
     <el-button type="primary" @click="submitForm('ruleForm2')">登录</el-button>
     <el-button @click="regsiter">注册</el-button>
+    <a href="javascript:;" class="qq-login">
+    <i class='iconfont icon-qq-copy-copy-copy qq-img'></i><span>QQ登录</span></a>
   </el-form-item>
 </el-form>
 </template>
@@ -65,7 +67,7 @@ export default {
         if (valid) {
           this.axios({
             method: 'post',
-            url: 'apis/API/user/login/',
+            url: 'API/user/login/',
             data: {
               username: this.ruleForm2.age,
               password: this.ruleForm2.pass
@@ -73,6 +75,8 @@ export default {
           }
           ).then(data => {
             window.localStorage['access'] = data.data['access']
+            window.localStorage['username'] = data.data['username']
+            window.localStorage['user_id'] = data.data['user_id']
             this.$router.push({path: '/header'})
           }).catch(eor => {
             alert('登录失败，用户名或密码错误')
@@ -95,4 +99,15 @@ export default {
     width: 400px;
     margin: 80px auto auto auto
 }
+.qq-img {
+  margin: 16px;
+  width: 10px;
+  height: 10px;
+  line-height: 12px;
+}
+a {
+  text-decoration: none;
+  color: #8a8a8a
+}
+
 </style>

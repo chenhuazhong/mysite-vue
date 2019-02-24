@@ -2,15 +2,12 @@
   <div id='hell'>
     <img src="@/assets/logo.png">
     <h3>hello</h3>
-    <test2 msg='helloworld传值'></test2>
   </div>
 </template>
 
 <script>
-import test2 from '@/components/test1'
 export default {
-  name: 'HelloWorld',
-  components: { test2 }
+  name: 'helloworld'
 }
 </script>
 <style>

@@ -14,7 +14,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/helloworld',
       name: 'HelloWorld',
       component: HelloWorld
     },
@@ -29,7 +29,7 @@ export default new Router({
       component: Loading
     },
     {
-      path: '/header',
+      path: '/',
       name: 'header',
       component: Heade
     },

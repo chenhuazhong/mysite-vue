@@ -1,9 +1,9 @@
 <template>
 <page class='page__'>
-  <div v-for = '(page, index) in pages' :key='page.id'  class='display' v-on:click="$emit('page-detail',page.id)">
+  <div v-for = '(page, index) in pages' :key='index'  class='display' v-on:click="$emit('page-detail', [page.id, page.p_title])">
     <el-card class = 'cardd' shadow="hover">
         <div slot="header" class="clearfix">
-    <span>{{ page.p_title }} {{ index }}</span>
+    <span>{{ page.p_title }}</span>
   </div>
       <div v-html='page.content'></div> </el-card>
   </div>
@@ -29,7 +29,7 @@ export default {
     getpage: function (currentpage) {
       this.axios({
         method: 'get',
-        url: 'apis/API/page/?offset=' + (currentpage - 1) * this.page_size + '&limit=' + this.page_size
+        url: 'API/page/?offset=' + (currentpage - 1) * this.page_size + '&limit=' + this.page_size
       }).then(data => {
         this.total = data.data.count
         this.pages = data.data.results

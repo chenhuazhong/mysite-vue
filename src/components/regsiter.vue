@@ -24,7 +24,7 @@ export default {
       }
       this.axios({
         method: 'get',
-        url: '/apis/API/user/check/?username=' + value
+        url: '/API/user/check/?username=' + value
       }).then(data => {
         if (data.data.code === 400) {
           callback(new Error(data.data.data))
@@ -79,7 +79,7 @@ export default {
         if (valid) {
           this.axios({
             method: 'post',
-            url: 'apis/API/user/regsiter/',
+            url: 'API/user/regsiter/',
             data: {
               username: this.ruleForm2['age'],
               password: this.ruleForm2['pass']

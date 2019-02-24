@@ -14,20 +14,37 @@
 
 <script>
 export default {
-  props: ['content', 'title', 'linkurl'],
+  props: ['id', 'title'],
   data () {
     return {
-      has_link: true
+      has_link: true,
+      linkurl: null,
+      content: ''
     }
   },
   methods: {
     open5 () {
       if (this.linkurl) {
-        window.location.href = 'http://' + this.linkurl
+        window.location.href = this.linkurl
       } else {
         this.$message('该片文章没有原文链接')
       }
+    },
+    getpagedetail () {
+      this.axios({
+        url: 'API/page/' + this.id + '/',
+        method: 'GET'
+      }).then(data => {
+        this.content = data.data.p_content
+        this.linkurl = data.data.p_other_link
+        console.log(data.data)
+      }).catch(err => {
+        console.log(err)
+      })
     }
+  },
+  mounted: function () {
+    this.getpagedetail()
   }
 }
 </script>

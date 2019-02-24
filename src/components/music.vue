@@ -1,72 +1,102 @@
 <template>
+<div class='music'>
   <el-table
+    ref="singleTable"
     :data="tableData"
-    style="width: 100%">
+    highlight-current-row
+    @current-change="handleCurrentChange"
+    style="width: 50%"
+    class='musiclist'>
     <el-table-column
-      label="日期"
-      width="180">
-      <template slot-scope="scope">
-        <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{ scope.row.date }}</span>
-      </template>
+      type="index"
+      width="50">
     </el-table-column>
     <el-table-column
-      label="姓名"
-      width="180">
-      <template slot-scope="scope">
-        <el-popover trigger="hover" placement="top">
-          <p>姓名: {{ scope.row.name }}</p>
-          <p>住址: {{ scope.row.address }}</p>
-          <div slot="reference" class="name-wrapper">
-            <el-tag size="medium">{{ scope.row.name }}</el-tag>
-          </div>
-        </el-popover>
-      </template>
+      property="date"
+      label="时间"
+      width="120">
     </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-      </template>
+    <el-table-column
+      property="name"
+      label="music"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      property="description"
+      label="描述">
     </el-table-column>
   </el-table>
+  <el-pagination class ='pagination' @current-change="nextpage"  :page-size="page_size" :current-page="current_page" layout="prev, pager, next" :total="total">
+  </el-pagination>
+  <audio :src="music_url" controls="controls" autoplay volume="volume"></audio>
+  <div style="margin-top: 20px">
+  </div>
+  </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   data () {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      tableData: [],
+      currentRow: null,
+      pages: [],
+      current_page: 1,
+      page_size: 7,
+      total: 0,
+      music_url: ''
     }
   },
   methods: {
-    handleEdit (index, row) {
-      console.log(index, row)
+    addvalue () {
+      this.value += 0.1
     },
-    handleDelete (index, row) {
-      console.log(index, row)
+    setCurrent (row) {
+      this.$refs.singleTable.setCurrentRow(row)
+    },
+    handleCurrentChange (val) {
+      this.currentRow = val
+      this.music_url = val.music
+    },
+    nextpage: function (currentpage) {
+      this.getmusiclist(currentpage)
+    },
+    getmusiclist (currentpage) {
+      this.axios({
+        url: 'API/music/?offset=' + (currentpage - 1) * this.page_size + '&limit=' + this.page_size,
+        method: 'GET'
+      }).then(data => {
+        this.tableData = []
+        this.total = data.data.count
+        for (var i = 0; i < data.data.results.length; i++) {
+          this.tableData.push({
+            name: data.data.results[i].name,
+            description: data.data.results[i].description,
+            music: data.data.results[i].music,
+            date: moment(data.data.results[i].create_time).format('YYYY-MM-DD')
+          })
+        }
+        console.log(data.data)
+      }).catch(err => {
+        console.log(err)
+      })
     }
+  },
+  mounted: function () {
+    this.getmusiclist()
   }
 }
 </script>
+
+<style>
+.mussic {
+  margin: 0px 50px;
+}
+.musiclist {
+  width: 500px;
+}
+.pagination {
+  text-align:left
+}
+</style>
