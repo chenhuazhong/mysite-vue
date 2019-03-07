@@ -6,7 +6,7 @@
         <page v-on:page-detail="check_page_detail($event)"></page>
         </el-tab-pane>
       <el-tab-pane label="音乐" name="second"><music  class="carousoul_"></music></el-tab-pane>
-      <el-tab-pane label="文章" name="third"> <page v-on:page-detail="check_page_detail($event)"></page></el-tab-pane>
+      <el-tab-pane label="文章" name="third">mark</el-tab-pane>
       <el-tab-pane label="一些开源的东西" name="fourth"><helloworld></helloworld></el-tab-pane>
         <el-tab-pane closable
         v-for="item in editableTabs2"
@@ -23,7 +23,7 @@
       </el-tab-pane>
     </el-tabs>
     <user v-on:logout='logout' v-if='is_login' class ='login' :username="username"></user>
-    <router-link v-else to="/login"><el-button class ='login' type="primary">登录</el-button></router-link>
+    <router-link v-else to="/login"><el-button class ='login' size="small" type="primary">登录</el-button></router-link>
     </div>
 </template>
 <script>

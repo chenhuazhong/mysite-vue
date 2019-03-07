@@ -73,7 +73,7 @@ export default {
           this.tableData.push({
             name: data.data.results[i].name,
             description: data.data.results[i].description,
-            music: data.data.results[i].music,
+            music: data.data.results[i].music_url,
             date: moment(data.data.results[i].create_time).format('YYYY-MM-DD')
           })
         }

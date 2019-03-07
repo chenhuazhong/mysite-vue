@@ -8,7 +8,7 @@ import Regsiter from '@/components/regsiter'
 import Login from '@/components/login'
 import MainFrame from '@/components/mainframework'
 import tab from '@/components/addtab'
-
+import blog from '@/components/blog'
 Vue.use(Router)
 
 export default new Router({
@@ -52,6 +52,11 @@ export default new Router({
       name: 'addtab',
       path: '/addtab',
       component: tab
+    },
+    {
+      name: 'blog',
+      component: blog,
+      path: '/blog'
     }
   ]
 })
