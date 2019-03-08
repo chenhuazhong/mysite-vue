@@ -1,13 +1,13 @@
 <template>
-<page class='page__'>
-  <div v-for = '(page, index) in pages' :key='index'  class='display' v-on:click="$emit('page-detail', [page.id, page.p_title])">
-    <el-card class = 'cardd' shadow="hover" body-style="{background-color: aquamarine}">
+<page class='page___'>
+  <div v-for = '(page, index) in pages' :key='index'  class='display_' v-on:click="$emit('page-detail', [page.id, page.p_title])">
+    <el-card class = 'cardd1' shadow="hover" body-style="{background-color: aquamarine}">
         <div slot="header" class="clearfix">
     <span class='pagetitle'>{{ page.p_title }}</span>
   </div>
       <div class='pagecontent' v-html='page.content'></div> </el-card>
   </div>
-  <div class='display'>
+  <div class='display_'>
 <el-pagination class ='pagination' @current-change="nextpage"  :page-size="page_size" :current-page="current_page" background layout="prev, pager, next" :total="total">
 </el-pagination>
 </div>
@@ -54,23 +54,22 @@ export default {
 </script>
 
 <style>
-.display {
+.display_ {
   width: 590px;
   display: block
 }
-.page__ {
+.page___ {
   width: 590px;
   display: block;
   margin-left: 10px;
 }
-.page_ {
+.page_1 {
   width: 590px;
   height: 200px;
   margin-bottom: 10px;
   padding: 4px;
-  background-color: aquamarine
 }
-.cardd {
+.cardd1 {
   height: 160px;
   display: block;
   margin-bottom: 10px;

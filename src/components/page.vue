@@ -3,9 +3,9 @@
   <div v-for = '(page, index) in pages' :key='index'  class='display' v-on:click="$emit('page-detail', [page.id, page.p_title])">
     <el-card class = 'cardd' shadow="hover">
         <div slot="header" class="clearfix">
-    <span>{{ page.p_title }}</span>
+    <span class="pagetitle">{{ page.p_title }}</span>
   </div>
-      <div v-html='page.content'></div> </el-card>
+      <div class='pagecontent' v-html='page.content'></div> </el-card>
   </div>
   <div class='display'>
 <el-pagination class ='pagination' @current-change="nextpage"  :page-size="page_size" :current-page="current_page" background layout="prev, pager, next" :total="total">
@@ -68,7 +68,6 @@ export default {
   height: 200px;
   margin-bottom: 10px;
   padding: 4px;
-  background-color: aquamarine
 }
 .cardd {
   height: 160px;
@@ -81,5 +80,12 @@ export default {
 .pagination {
   text-align: center;
   display: block
+}
+.pagetitle {
+  color: #47bac1;
+  font-size: 18px;
+}
+.pagecontent {
+  font-size: 15px;
 }
 </style>

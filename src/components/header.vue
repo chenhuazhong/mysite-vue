@@ -6,7 +6,7 @@
         <page v-on:page-detail="check_page_detail($event)"></page>
         </el-tab-pane>
       <el-tab-pane label="音乐" name="second"><music  class="carousoul_"></music></el-tab-pane>
-      <el-tab-pane label="文章" name="third">mark</el-tab-pane>
+      <el-tab-pane label="文章" name="third"><blog></blog></el-tab-pane>
       <el-tab-pane label="一些开源的东西" name="fourth"><helloworld></helloworld></el-tab-pane>
         <el-tab-pane closable
         v-for="item in editableTabs2"
@@ -33,6 +33,7 @@ import music from '@/components/music'
 import pagedetail from '@/components/detail'
 import user from '@/components/user'
 import helloworld from '@/components/HelloWorld'
+import blog from '@/components/blog'
 
 export default {
   data () {
@@ -116,7 +117,8 @@ export default {
     music,
     pagedetail,
     user,
-    helloworld
+    helloworld,
+    blog
   }
 }
 </script>
